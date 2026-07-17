@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satvik Mishra | Applied AI Engineer</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#0a0a0a',
+                        surface: '#121212',
+                        border: '#27272a',
+                        muted: '#a1a1aa',
+                        primary: '#ededed',
+                        accent: '#10b981'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::selection {
+            background-color: #10b981;
+            color: #ffffff;
+        }
+
+        /* --- Custom Animations --- */
+        
+        /* Scroll Reveal Base Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Staggered Delays for Hero Section */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+
+        /* Dynamic Mouse-Tracking Spotlight Effect */
+        .spotlight-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .spotlight-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(
+                600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(16, 185, 129, 0.08), 
+                transparent 40%
+            );
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+        .spotlight-card:hover {
+            transform: translateY(-4px);
+            border-color: #3f3f46;
+        }
+        
+        /* Ensure text stays above the spotlight gradient */
+        .content-z {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-primary font-sans min-h-screen antialiased selection:bg-accent selection:text-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border reveal active">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-semibold text-lg tracking-tight hover:text-accent transition-colors cursor-pointer">
+                Satvik Mishra
+            </div>
+            <div class="flex gap-6 text-sm font-medium text-muted">
+                <a href="mailto:satvikmishra44@gmail.com" class="hover:text-primary transition-colors">Email</a>
+                <a href="https://linkedin.com/in/satvik-mishra-developer" target="_blank" class="hover:text-primary transition-colors">LinkedIn</a>
+                <a href="https://github.com/satvikmishra44" target="_blank" class="hover:text-primary transition-colors">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="max-w-5xl mx-auto px-6 pt-48 pb-24 border-b border-border">
+        <div class="reveal active delay-100 inline-flex px-3 py-1 mb-8 border border-border rounded-full bg-surface text-muted text-xs font-mono items-center gap-2 hover:border-accent/50 transition-colors cursor-default">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+            Available for remote roles | IST (GMT+5:30)
+        </div>
+        
+        <h1 class="reveal active delay-200 text-4xl md:text-6xl font-bold mb-6 tracking-tight text-primary leading-tight">
+            Applied AI Engineer & <br class="hidden md:block" />
+            <span class="text-muted">Full Stack Developer.</span>
+        </h1>
+        
+        <p class="reveal active delay-300 text-lg md:text-xl text-muted leading-relaxed max-w-2xl mb-10 font-light">
+            I design and ship production-ready LLM-powered systems, RAG pipelines, and scalable backend architecture. Currently building AI-driven content intelligence tools for a distributed team of 50+.
+        </p>
+
+        <div class="reveal active delay-400 flex gap-4">
+            <a href="mailto:satvikmishra44@gmail.com" class="px-5 py-2.5 bg-primary text-background font-medium rounded-md hover:bg-accent hover:text-white hover:shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all duration-300 text-sm transform hover:-translate-y-0.5">
+                Get in touch
+            </a>
+            <a href="https://github.com/satvikmishra44" target="_blank" class="px-5 py-2.5 bg-surface border border-border text-primary font-medium rounded-md hover:bg-border transition-all duration-300 text-sm transform hover:-translate-y-0.5">
+                View GitHub
+            </a>
+        </div>
+    </header>
+
+    <!-- Experience Section -->
+    <section class="max-w-5xl mx-auto px-6 py-24 border-b border-border">
+        <h2 class="reveal text-2xl font-semibold mb-12 tracking-tight">Experience</h2>
+        
+        <div class="grid gap-8">
+            <!-- AntarikshTV (Current) -->
+            <div class="reveal spotlight-card p-6 md:p-8 rounded-2xl bg-surface border border-border grid md:grid-cols-[1fr_3fr] gap-4 md:gap-8">
+                <div class="text-muted text-sm mt-1 font-mono content-z">
+                    Jan 2026 — Present
+                </div>
+                <div class="content-z">
+                    <h3 class="text-lg font-medium text-primary mb-1">AI Engineer</h3>
+                    <p class="text-muted mb-4">AntarikshTV · Remote</p>
+                    <ul class="space-y-3 text-muted text-sm leading-relaxed">
+                        <li class="flex items-start gap-3 group">
+                            <span class="text-border mt-1 flex-shrink-0 transition-colors group-hover:text-accent">✦</span>
+                            <span class="group-hover:text-primary transition-colors">Architected a content intelligence system using LangChain, Gemini, and ChromaDB that analyzes 500+ historical videos and live news signals.</span>
+                        </li>
+                        <li class="flex items-start gap-3 group">
+                            <span class="text-border mt-1 flex-shrink-0 transition-colors group-hover:text-accent">✦</span>
+                            <span class="group-hover:text-primary transition-colors">Built automated multi-step research agents for a 10-person writing team, improving script delivery throughput.</span>
+                        </li>
+                        <li class="flex items-start gap-3 group">
+                            <span class="text-border mt-1 flex-shrink-0 transition-colors group-hover:text-accent">✦</span>
+                            <span class="group-hover:text-primary transition-colors">Leading fine-tuning of a domain-specific scriptwriting LLM on 3+ years of proprietary scripts.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- AntarikshTV (Intern) -->
+            <div class="reveal spotlight-card p-6 md:p-8 rounded-2xl bg-surface border border-border grid md:grid-cols-[1fr_3fr] gap-4 md:gap-8">
+                <div class="text-muted text-sm mt-1 font-mono content-z">
+                    Nov 2025 — Dec 2025
+                </div>
+                <div class="content-z">
+                    <h3 class="text-lg font-medium text-primary mb-1">AI Engineer Intern</h3>
+                    <p class="text-muted mb-4">AntarikshTV · Remote</p>
+                    <ul class="space-y-3 text-muted text-sm leading-relaxed">
+                        <li class="flex items-start gap-3 group">
+                            <span class="text-border mt-1 flex-shrink-0 transition-colors group-hover:text-accent">✦</span>
+                            <span class="group-hover:text-primary transition-colors">Built an internal AI chatbot using LangChain and ChromaDB to query organizational knowledge bases and surface real-time insights.</span>
+                        </li>
+                        <li class="flex items-start gap-3 group">
+                            <span class="text-border mt-1 flex-shrink-0 transition-colors group-hover:text-accent">✦</span>
+                            <span class="group-hover:text-primary transition-colors">Developed a centralized task-tracking platform for content moderation workflows.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RBLottery -->
+            <div class="reveal spotlight-card p-6 md:p-8 rounded-2xl bg-surface border border-border grid md:grid-cols-[1fr_3fr] gap-4 md:gap-8">
+                <div class="text-muted text-sm mt-1 font-mono content-z">
+                    Mar 2025 — Sep 2025
+                </div>
+                <div class="content-z">
+                    <h3 class="text-lg font-medium text-primary mb-1">Co-Founder & Founding Engineer</h3>
+                    <p class="text-muted mb-4">RBLottery · Remote</p>
+                    <ul class="space-y-3 text-muted text-sm leading-relaxed">
+                        <li class="flex items-start gap-3 group">
+                            <span class="text-border mt-1 flex-shrink-0 transition-colors group-hover:text-accent">✦</span>
+                            <span class="group-hover:text-primary transition-colors">Sole-engineered a full-stack digital platform from zero using the MERN stack, JWT authentication, and Tailwind CSS.</span>
+                        </li>
+                        <li class="flex items-start gap-3 group">
+                            <span class="text-border mt-1 flex-shrink-0 transition-colors group-hover:text-accent">✦</span>
+                            <span class="group-hover:text-primary transition-colors">Scaled the platform to 6,300+ registered users with a 78% repeat usage rate, reaching profitability.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="max-w-5xl mx-auto px-6 py-24">
+        <h2 class="reveal text-2xl font-semibold mb-12 tracking-tight">Selected Projects</h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- CapTon AI -->
+            <div class="reveal spotlight-card p-8 rounded-2xl bg-surface border border-border flex flex-col justify-between h-full group cursor-pointer">
+                <div class="content-z">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-10 h-10 rounded-full bg-border flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                            <svg class="w-5 h-5 text-muted group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <a href="#" class="text-muted group-hover:text-accent transition-transform transform group-hover:scale-110 group-hover:-translate-y-1 group-hover:translate-x-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+                    <h3 class="text-xl font-medium text-primary mb-3 group-hover:text-accent transition-colors">CapTon AI</h3>
+                    <p class="text-muted text-sm leading-relaxed mb-8">
+                        Production-ready multi-agent platform using CrewAI that converts long-form video scripts into SEO-optimized social media assets via coordinated analyzer and writer agents.
+                    </p>
+                </div>
+                <div class="content-z flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-background border border-border text-muted text-xs rounded-full font-mono group-hover:border-accent/30 transition-colors">CrewAI</span>
+                    <span class="px-3 py-1 bg-background border border-border text-muted text-xs rounded-full font-mono group-hover:border-accent/30 transition-colors">LangChain</span>
+                    <span class="px-3 py-1 bg-background border border-border text-muted text-xs rounded-full font-mono group-hover:border-accent/30 transition-colors">Streamlit</span>
+                </div>
+            </div>
+
+            <!-- MADHAV RAG -->
+            <div class="reveal spotlight-card p-8 rounded-2xl bg-surface border border-border flex flex-col justify-between h-full group cursor-pointer">
+                <div class="content-z">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="w-10 h-10 rounded-full bg-border flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                            <svg class="w-5 h-5 text-muted group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                        </div>
+                        <a href="https://github.com/satvikmishra44" target="_blank" class="text-muted group-hover:text-accent transition-transform transform group-hover:scale-110 group-hover:-translate-y-1 group-hover:translate-x-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </a>
+                    </div>
+                    <h3 class="text-xl font-medium text-primary mb-3 group-hover:text-accent transition-colors">MADHAV RAG Assistant</h3>
+                    <p class="text-muted text-sm leading-relaxed mb-8">
+                        Retrieval-augmented AI assistant that vectorizes 700+ texts into ChromaDB, achieving 95% contextual retrieval accuracy evaluated against a 100-query benchmark.
+                    </p>
+                </div>
+                <div class="content-z flex flex-wrap gap-2">
+                    <span class="px-3 py-1 bg-background border border-border text-muted text-xs rounded-full font-mono group-hover:border-accent/30 transition-colors">FastAPI</span>
+                    <span class="px-3 py-1 bg-background border border-border text-muted text-xs rounded-full font-mono group-hover:border-accent/30 transition-colors">React</span>
+                    <span class="px-3 py-1 bg-background border border-border text-muted text-xs rounded-full font-mono group-hover:border-accent/30 transition-colors">ChromaDB</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="reveal max-w-5xl mx-auto px-6 py-12 text-sm text-muted flex flex-col md:flex-row justify-between items-center">
+        <p>&copy; 2026 Satvik Mishra. All rights reserved.</p>
+        <div class="flex gap-6 mt-4 md:mt-0 font-medium">
+            <a href="https://github.com/satvikmishra44" target="_blank" class="hover:text-primary transition-colors">GitHub</a>
+            <a href="https://linkedin.com/in/satvik-mishra-developer" target="_blank" class="hover:text-primary transition-colors">LinkedIn</a>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Scroll Reveal Intersection Observer
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: Stop observing once revealed
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => {
+                // Skip elements that are already active (like the hero section)
+                if(!el.classList.contains('active')){
+                    observer.observe(el);
+                }
+            });
+
+            // 2. Mouse Tracking Spotlight Effect for Cards
+            const spotlightCards = document.querySelectorAll('.spotlight-card');
+            
+            spotlightCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
