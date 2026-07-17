@@ -17,10 +17,10 @@
             theme: {
                 extend: {
                     colors: {
-                        background: '#050505',
-                        surface: '#0c0c0c',
+                        background: '#030303',
+                        surface: '#0a0a0a',
                         border: '#1f2937',
-                        muted: '#9ca3af',
+                        muted: '#8b949e',
                         primary: '#f3f4f6',
                         accent: '#10b981',
                         accentDark: '#047857'
@@ -31,16 +31,11 @@
                     },
                     animation: {
                         'blink': 'blink 1s step-end infinite',
-                        'float': 'float 6s ease-in-out infinite',
                     },
                     keyframes: {
                         blink: {
                             '0%, 100%': { opacity: '1' },
                             '50%': { opacity: '0' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
                         }
                     }
                 }
@@ -53,11 +48,21 @@
             color: #000000;
         }
 
-        /* Scroll Reveal Base Classes */
+        /* Cinematic Noise Overlay */
+        .bg-noise {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+        }
+
+        /* Scroll Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal.active {
             opacity: 1;
@@ -66,45 +71,50 @@
         
         /* Grid Background Overlay */
         .bg-grid {
-            background-size: 40px 40px;
+            background-size: 50px 50px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
         }
 
         /* Premium Node Card Hover */
         .node-card {
             position: relative;
-            background: rgba(12, 12, 12, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(31, 41, 55, 0.8);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
         
         .node-card::before {
             content: '';
             position: absolute;
-            inset: -1px;
-            background: linear-gradient(to bottom right, rgba(16, 185, 129, 0.4), transparent 40%, transparent);
-            z-index: -1;
-            border-radius: inherit;
+            inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(16, 185, 129, 0.06), transparent 40%);
+            z-index: 0;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s;
         }
 
         .node-card:hover {
-            transform: translateY(-4px) scale(1.01);
+            transform: translateY(-4px);
             border-color: rgba(16, 185, 129, 0.3);
-            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.1);
+            box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.1);
         }
         
         .node-card:hover::before {
             opacity: 1;
         }
 
-        /* Canvas z-index handling */
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Canvas Z-index */
         #vector-canvas {
             position: absolute;
             top: 0; left: 0;
@@ -117,56 +127,78 @@
             position: relative;
             z-index: 10;
         }
+
+        /* Link Underline Animation */
+        .hover-underline {
+            position: relative;
+        }
+        .hover-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #10b981;
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        .hover-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
     </style>
 </head>
-<body class="bg-background text-primary font-sans min-h-screen antialiased overflow-x-hidden selection:bg-accent selection:text-white">
+<body class="bg-background text-primary font-sans min-h-screen antialiased overflow-x-hidden selection:bg-accent selection:text-black">
+
+    <div class="bg-noise"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full top-0 z-50 bg-background/70 backdrop-blur-xl border-b border-white/5">
+    <nav class="fixed w-full top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/5">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="font-mono font-bold text-lg tracking-tight text-white flex items-center gap-2 group cursor-pointer">
-                <span class="w-2 h-2 bg-accent rounded-full group-hover:animate-ping"></span>
-                SM_SYS
+            <div class="font-mono font-bold text-lg tracking-tight text-white flex items-center gap-2 cursor-pointer">
+                <span class="w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
+                SM<span class="text-accent">_</span>
             </div>
-            <div class="flex gap-8 text-sm font-medium text-muted">
-                <a href="mailto:satvikmishra44@gmail.com" class="hover:text-accent transition-colors">Email</a>
-                <a href="https://linkedin.com/in/satvik-mishra-developer" target="_blank" class="hover:text-accent transition-colors">LinkedIn</a>
-                <a href="https://github.com/satvikmishra44" target="_blank" class="hover:text-accent transition-colors">GitHub</a>
+            <div class="flex gap-8 text-sm font-medium text-muted font-mono">
+                <a href="mailto:satvikmishra44@gmail.com" class="hover:text-white transition-colors hover-underline">Email</a>
+                <a href="https://linkedin.com/in/satvik-mishra-developer" target="_blank" class="hover:text-white transition-colors hover-underline">LinkedIn</a>
+                <a href="https://github.com/satvikmishra44" target="_blank" class="hover:text-white transition-colors hover-underline">GitHub</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section with Vector Graph Simulation -->
-    <header id="hero" class="relative w-full min-h-[90vh] flex items-center border-b border-border overflow-hidden bg-grid">
+    <!-- Hero Section -->
+    <header id="hero" class="relative w-full min-h-screen flex items-center border-b border-border overflow-hidden bg-grid">
         <canvas id="vector-canvas"></canvas>
         
         <div class="content-layer max-w-6xl mx-auto px-6 pt-20 w-full pointer-events-none">
-            <div class="inline-flex px-3 py-1 mb-8 border border-accent/20 rounded bg-accent/5 text-accent text-xs font-mono items-center gap-2 pointer-events-auto shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z"></path></svg>
-                System Active // Open to remote US roles[cite: 1]
+            <div class="inline-flex px-3 py-1 mb-8 border border-accent/20 rounded bg-accent/5 text-accent text-xs font-mono items-center gap-2 pointer-events-auto">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                System Active // Open to remote US roles
             </div>
             
             <div class="font-mono text-muted mb-4 h-6 text-sm flex items-center gap-2">
-                <span class="text-accent">></span> 
+                <span class="text-accent">~/satvik$</span> 
                 <span id="typewriter"></span><span class="inline-block w-2 h-4 bg-accent animate-blink ml-1"></span>
             </div>
 
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight text-white leading-[1.1]">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-white leading-[1.05]">
                 Satvik Mishra <br />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-200">Applied AI Engineer.</span>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-100">Applied AI Engineer.</span>
             </h1>
             
-            <p class="text-lg text-muted leading-relaxed max-w-2xl mb-10 font-light pointer-events-auto border-l-2 border-border pl-4">
-                Shipping production-ready LLM-powered systems, RAG pipelines, and scalable backend architecture[cite: 1]. Architecting intelligent logic for a distributed team of 50+[cite: 1].
+            <p class="text-lg text-muted leading-relaxed max-w-2xl mb-12 font-light pointer-events-auto border-l-2 border-border pl-4">
+                Shipping production-ready LLM-powered systems, RAG pipelines, and scalable backend architecture. Architecting intelligent logic for a distributed team of 50+.
             </p>
 
             <div class="flex flex-wrap gap-4 pointer-events-auto">
-                <a href="mailto:satvikmishra44@gmail.com" class="px-6 py-3 bg-white text-black font-semibold rounded hover:bg-accent hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group">
+                <a href="mailto:satvikmishra44@gmail.com" id="magnetic-btn" class="px-8 py-3.5 bg-white text-black font-semibold rounded hover:bg-accent hover:text-white transition-colors duration-300 text-sm flex items-center gap-2 group will-change-transform">
                     Initialize Contact
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
-                <a href="https://github.com/satvikmishra44" target="_blank" class="px-6 py-3 bg-transparent border border-border text-white font-semibold rounded hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 text-sm flex items-center gap-2">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <a href="https://github.com/satvikmishra44" target="_blank" class="px-8 py-3.5 bg-transparent border border-border text-white font-semibold rounded hover:border-accent/50 hover:bg-accent/5 transition-all duration-300 text-sm flex items-center gap-2">
                     Source Code
                 </a>
             </div>
@@ -174,69 +206,69 @@
     </header>
 
     <!-- Capabilities / Tech Stack -->
-    <section class="border-b border-border bg-surface/50">
+    <section class="border-b border-border bg-surface/30 backdrop-blur-sm">
         <div class="max-w-6xl mx-auto px-6 py-8 flex flex-wrap gap-8 justify-between items-center text-sm font-mono text-muted reveal">
-            <div class="flex items-center gap-2"><span class="text-accent">01.</span> LLMs (Gemini, LLaMA)[cite: 1]</div>
-            <div class="flex items-center gap-2"><span class="text-accent">02.</span> RAG & VectorDBs[cite: 1]</div>
-            <div class="flex items-center gap-2"><span class="text-accent">03.</span> Agentic Workflows[cite: 1]</div>
-            <div class="flex items-center gap-2"><span class="text-accent">04.</span> FastAPI & Node.js[cite: 1]</div>
-            <div class="flex items-center gap-2"><span class="text-accent">05.</span> System Architecture[cite: 1]</div>
+            <div class="flex items-center gap-2"><span class="text-accent">01.</span> LLMs (Gemini, LLaMA)</div>
+            <div class="flex items-center gap-2"><span class="text-accent">02.</span> RAG & VectorDBs</div>
+            <div class="flex items-center gap-2"><span class="text-accent">03.</span> Agentic Workflows</div>
+            <div class="flex items-center gap-2"><span class="text-accent">04.</span> FastAPI & Node.js</div>
+            <div class="flex items-center gap-2"><span class="text-accent">05.</span> Python & C++</div>
         </div>
     </section>
 
     <!-- Experience Timeline -->
-    <section class="max-w-6xl mx-auto px-6 py-24 border-b border-border relative">
-        <div class="absolute left-6 md:left-[30%] top-24 bottom-24 w-px bg-gradient-to-b from-accent via-border to-transparent hidden md:block"></div>
+    <section class="max-w-6xl mx-auto px-6 py-32 border-b border-border relative">
+        <div class="absolute left-6 md:left-[30%] top-32 bottom-32 w-px bg-gradient-to-b from-accent via-border to-transparent hidden md:block"></div>
         
-        <h2 class="reveal text-3xl font-bold mb-16 tracking-tight text-white flex items-center gap-3">
+        <h2 class="reveal text-3xl font-bold mb-20 tracking-tight text-white flex items-center gap-3">
             <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
             Execution_Logs
         </h2>
         
         <div class="grid gap-12">
-            <!-- AntarikshTV (Current) -->
-            <div class="reveal node-card p-8 rounded-xl grid md:grid-cols-[1fr_3fr] gap-6 md:gap-12 relative group">
-                <div class="absolute -left-[5px] top-10 w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_10px_#10b981] hidden md:block group-hover:scale-150 transition-transform"></div>
-                <div class="text-muted font-mono text-sm mt-1">
+            <!-- AntarikshTV -->
+            <div class="reveal node-card p-8 rounded-xl grid md:grid-cols-[1fr_3fr] gap-6 md:gap-12 relative group cursor-default">
+                <div class="absolute -left-[5px] top-10 w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_12px_#10b981] hidden md:block transition-transform duration-500 group-hover:scale-150"></div>
+                <div class="text-muted font-mono text-sm mt-1 card-content">
                     <span class="text-white block mb-1">AntarikshTV</span>
-                    Jan 2026 — Present[cite: 1]
+                    Jan 2026 — Present
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">AI Engineer</h3>
+                <div class="card-content">
+                    <h3 class="text-xl font-bold text-white mb-4">AI Engineer</h3>
                     <ul class="space-y-4 text-muted text-sm leading-relaxed">
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Architected a content intelligence system using LangChain, Gemini, and ChromaDB that analyzes 500+ historical videos and live news signals[cite: 1].
+                            Architected a content intelligence system using LangChain, Gemini, and ChromaDB that analyzes 500+ historical videos and live news signals.
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Built automated multi-step research agents for a 10-person writing team to retrieve insights from internal video archives, improving script delivery throughput[cite: 1].
+                            Built automated multi-step research agents for a 10-person writing team to retrieve insights from internal video archives, improving script delivery throughput.
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Leading fine-tuning of a domain-specific scriptwriting LLM on 3+ years of proprietary scripts[cite: 1].
+                            Leading fine-tuning of a domain-specific scriptwriting LLM on 3+ years of proprietary scripts.
                         </li>
                     </ul>
                 </div>
             </div>
 
             <!-- RBLottery -->
-            <div class="reveal node-card p-8 rounded-xl grid md:grid-cols-[1fr_3fr] gap-6 md:gap-12 relative group">
-                <div class="absolute -left-[5px] top-10 w-2.5 h-2.5 rounded-full bg-border group-hover:bg-accent hidden md:block transition-colors"></div>
-                <div class="text-muted font-mono text-sm mt-1">
+            <div class="reveal node-card p-8 rounded-xl grid md:grid-cols-[1fr_3fr] gap-6 md:gap-12 relative group cursor-default">
+                <div class="absolute -left-[5px] top-10 w-2.5 h-2.5 rounded-full bg-border group-hover:bg-accent hidden md:block transition-colors duration-500"></div>
+                <div class="text-muted font-mono text-sm mt-1 card-content">
                     <span class="text-white block mb-1">RBLottery</span>
-                    Mar 2025 — Sep 2025[cite: 1]
+                    Mar 2025 — Sep 2025
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white mb-2">Co-Founder & Founding Engineer</h3>
+                <div class="card-content">
+                    <h3 class="text-xl font-bold text-white mb-4">Co-Founder & Founding Engineer</h3>
                     <ul class="space-y-4 text-muted text-sm leading-relaxed">
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Sole-engineered a full-stack digital lottery platform from zero using the MERN stack (MongoDB, Express, React, Node.js), JWT auth, and Tailwind[cite: 1].
+                            Sole-engineered a full-stack digital lottery platform from zero using the MERN stack (MongoDB, Express, React, Node.js), JWT auth, and Tailwind.
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Scaled the platform to 6,300+ registered users with a 78% repeat usage rate, reaching profitability within months[cite: 1].
+                            Scaled the platform to 6,300+ registered users with a 78% repeat usage rate, reaching profitability within months.
                         </li>
                     </ul>
                 </div>
@@ -245,62 +277,78 @@
     </section>
 
     <!-- Projects Grid -->
-    <section class="max-w-6xl mx-auto px-6 py-24">
-        <h2 class="reveal text-3xl font-bold mb-16 tracking-tight text-white flex items-center gap-3">
+    <section class="max-w-6xl mx-auto px-6 py-32">
+        <h2 class="reveal text-3xl font-bold mb-20 tracking-tight text-white flex items-center gap-3">
             <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
             Deployed_Constructs
         </h2>
         
-        <div class="grid md:grid-cols-2 gap-8">
+        <div class="grid md:grid-cols-3 gap-6">
+            
             <!-- CapTon AI -->
             <div class="reveal node-card p-8 rounded-xl flex flex-col justify-between group">
-                <div>
+                <div class="card-content">
                     <div class="flex justify-between items-start mb-6">
-                        <h3 class="text-2xl font-bold text-white group-hover:text-accent transition-colors">CapTon AI</h3>
-                        <a href="#" class="text-muted hover:text-white transition-colors p-2 bg-border/50 rounded-full">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        </a>
+                        <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors">CapTon AI</h3>
                     </div>
                     <p class="text-muted text-sm leading-relaxed mb-8">
-                        Production-ready multi-agent platform using CrewAI that converts long-form video scripts into SEO-optimized social media assets via coordinated analyzer and writer agents[cite: 1].
+                        Production-ready multi-agent platform using CrewAI that converts long-form video scripts into SEO-optimized assets via coordinated analyzer and writer agents.
                     </p>
                 </div>
-                <div class="flex flex-wrap gap-2 font-mono text-xs text-accent">
-                    <span class="px-3 py-1 bg-accentDark/10 border border-accent/20 rounded">CrewAI</span>[cite: 1]
-                    <span class="px-3 py-1 bg-accentDark/10 border border-accent/20 rounded">LangChain</span>[cite: 1]
-                    <span class="px-3 py-1 bg-accentDark/10 border border-accent/20 rounded">Streamlit</span>[cite: 1]
+                <div class="card-content flex flex-wrap gap-2 font-mono text-xs text-accent/80">
+                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">CrewAI</span>
+                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">LangChain</span>
                 </div>
             </div>
 
             <!-- MADHAV RAG -->
-            <div class="reveal node-card p-8 rounded-xl flex flex-col justify-between group">
-                <div>
+            <div class="reveal node-card p-8 rounded-xl flex flex-col justify-between group delay-100">
+                <div class="card-content">
                     <div class="flex justify-between items-start mb-6">
-                        <h3 class="text-2xl font-bold text-white group-hover:text-accent transition-colors">MADHAV RAG</h3>
-                        <a href="https://github.com/satvikmishra44" target="_blank" class="text-muted hover:text-white transition-colors p-2 bg-border/50 rounded-full">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        </a>
+                        <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors">MADHAV RAG</h3>
                     </div>
                     <p class="text-muted text-sm leading-relaxed mb-8">
-                        Retrieval-augmented AI assistant that vectorizes 700+ Bhagavad Gita verses into ChromaDB, achieving 95% contextual retrieval accuracy evaluated against a 100-query benchmark[cite: 1].
+                        Retrieval-augmented AI assistant that vectorizes 700+ Bhagavad Gita verses into ChromaDB, achieving 95% contextual retrieval accuracy against a benchmark set.
                     </p>
                 </div>
-                <div class="flex flex-wrap gap-2 font-mono text-xs text-accent">
-                    <span class="px-3 py-1 bg-accentDark/10 border border-accent/20 rounded">FastAPI</span>[cite: 1]
-                    <span class="px-3 py-1 bg-accentDark/10 border border-accent/20 rounded">React</span>[cite: 1]
-                    <span class="px-3 py-1 bg-accentDark/10 border border-accent/20 rounded">ChromaDB</span>[cite: 1]
+                <div class="card-content flex flex-wrap gap-2 font-mono text-xs text-accent/80">
+                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">FastAPI</span>
+                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">ChromaDB</span>
                 </div>
             </div>
+
+            <!-- VectorFlow -->
+            <div class="reveal node-card p-8 rounded-xl flex flex-col justify-between group delay-200">
+                <div class="card-content">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors">VectorFlow</h3>
+                    </div>
+                    <p class="text-muted text-sm leading-relaxed mb-8">
+                        Full-stack node-graph visualization environment. Features an interactive React Flow UI powered seamlessly by a high-performance Python FastAPI backend.
+                    </p>
+                </div>
+                <div class="card-content flex flex-wrap gap-2 font-mono text-xs text-accent/80">
+                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">React Flow</span>
+                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">FastAPI</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-border bg-surface/30">
+    <footer class="border-t border-border bg-surface/50 backdrop-blur-md">
         <div class="max-w-6xl mx-auto px-6 py-12 text-sm text-muted font-mono flex flex-col md:flex-row justify-between items-center">
-            <p>System Terminated // &copy; 2026 Satvik Mishra.</p>
-            <div class="flex gap-6 mt-4 md:mt-0">
-                <a href="https://github.com/satvikmishra44" target="_blank" class="hover:text-accent transition-colors">GitHub</a>
-                <a href="https://linkedin.com/in/satvik-mishra-developer" target="_blank" class="hover:text-accent transition-colors">LinkedIn</a>
+            <div class="flex items-center gap-3">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-accent"></span>
+                </span>
+                <p>System Online // &copy; 2026 Satvik Mishra.</p>
+            </div>
+            <div class="flex gap-6 mt-6 md:mt-0">
+                <a href="https://github.com/satvikmishra44" target="_blank" class="hover:text-accent transition-colors hover-underline">GitHub</a>
+                <a href="https://linkedin.com/in/satvik-mishra-developer" target="_blank" class="hover:text-accent transition-colors hover-underline">LinkedIn</a>
             </div>
         </div>
     </footer>
@@ -310,7 +358,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- 1. Typewriter Effect ---
-            const phrases = ["Initializing AI Engineer...", "Loading Full Stack Developer...", "Parsing RAG Pipelines...", "Compiling Backend Architecture..."];
+            const phrases = ["Initializing AI Engineer...", "Loading Full Stack Developer...", "Parsing RAG Pipelines...", "Compiling Architecture..."];
             let phraseIndex = 0;
             let charIndex = 0;
             let isDeleting = false;
@@ -330,14 +378,13 @@
                 let typeSpeed = isDeleting ? 30 : 70;
 
                 if (!isDeleting && charIndex === currentPhrase.length) {
-                    typeSpeed = 2000; // Pause at end
+                    typeSpeed = 2500; 
                     isDeleting = true;
                 } else if (isDeleting && charIndex === 0) {
                     isDeleting = false;
                     phraseIndex = (phraseIndex + 1) % phrases.length;
-                    typeSpeed = 500; // Pause before new word
+                    typeSpeed = 500; 
                 }
-
                 setTimeout(typeWriter, typeSpeed);
             }
             setTimeout(typeWriter, 1000);
@@ -350,10 +397,34 @@
                     }
                 });
             }, { threshold: 0.1 });
-
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // --- 3. Vector Graph Simulation (The Unique Hook) ---
+            // --- 3. Magnetic Button Effect ---
+            const btn = document.getElementById('magnetic-btn');
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = `translate(0px, 0px)`;
+                btn.style.transition = 'transform 0.3s ease';
+            });
+            btn.addEventListener('mouseenter', () => {
+                btn.style.transition = 'none';
+            });
+
+            // --- 4. Node Card Spotlight Hover ---
+            document.querySelectorAll('.node-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                });
+            });
+
+            // --- 5. Vector Graph Simulation ---
             const canvas = document.getElementById('vector-canvas');
             const ctx = canvas.getContext('2d');
             const hero = document.getElementById('hero');
@@ -371,37 +442,31 @@
                 resize();
                 initGraph();
             });
-            
             resize();
 
-            // Graph Node Class
             class Node {
                 constructor(x, y) {
                     this.x = x;
                     this.y = y;
-                    this.vx = (Math.random() - 0.5) * 0.3;
-                    this.vy = (Math.random() - 0.5) * 0.3;
+                    this.vx = (Math.random() - 0.5) * 0.2;
+                    this.vy = (Math.random() - 0.5) * 0.2;
                     this.radius = Math.random() * 2 + 1;
                     this.connections = [];
                 }
-                
                 update() {
                     this.x += this.vx;
                     this.y += this.vy;
-                    // Gentle bounds
                     if (this.x < 0 || this.x > w) this.vx *= -1;
                     if (this.y < 0 || this.y > h) this.vy *= -1;
                 }
-                
                 draw() {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(16, 185, 129, 0.4)';
+                    ctx.fillStyle = 'rgba(16, 185, 129, 0.5)';
                     ctx.fill();
                 }
             }
 
-            // Data Pulse Class (Traveling along edges)
             class Pulse {
                 constructor(startNode, endNode) {
                     this.start = startNode;
@@ -409,41 +474,37 @@
                     this.progress = 0;
                     this.speed = Math.random() * 0.01 + 0.005;
                 }
-                
                 update() {
                     this.progress += this.speed;
-                    return this.progress >= 1; // Return true if finished
+                    return this.progress >= 1; 
                 }
-                
                 draw() {
                     const x = this.start.x + (this.end.x - this.start.x) * this.progress;
                     const y = this.start.y + (this.end.y - this.start.y) * this.progress;
-                    
                     ctx.beginPath();
-                    ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+                    ctx.arc(x, y, 2, 0, Math.PI * 2);
                     ctx.fillStyle = '#10b981';
-                    ctx.shadowBlur = 10;
+                    ctx.shadowBlur = 12;
                     ctx.shadowColor = '#10b981';
                     ctx.fill();
-                    ctx.shadowBlur = 0; // Reset
+                    ctx.shadowBlur = 0; 
                 }
             }
 
             function initGraph() {
                 nodes = [];
                 pulses = [];
-                const nodeCount = w > 768 ? 60 : 30; // Responsive density
+                const nodeCount = w > 768 ? 65 : 30; 
                 
                 for (let i = 0; i < nodeCount; i++) {
                     nodes.push(new Node(Math.random() * w, Math.random() * h));
                 }
                 
-                // Create logical connections based on distance (forming the graph structure)
                 for (let i = 0; i < nodes.length; i++) {
                     for (let j = i + 1; j < nodes.length; j++) {
                         const dx = nodes[i].x - nodes[j].x;
                         const dy = nodes[i].y - nodes[j].y;
-                        if (Math.sqrt(dx*dx + dy*dy) < 150) {
+                        if (Math.sqrt(dx*dx + dy*dy) < 160) {
                             nodes[i].connections.push(nodes[j]);
                             nodes[j].connections.push(nodes[i]);
                         }
@@ -454,7 +515,6 @@
             function animateGraph() {
                 ctx.clearRect(0, 0, w, h);
                 
-                // Draw Connections
                 ctx.lineWidth = 1;
                 for (let i = 0; i < nodes.length; i++) {
                     const n1 = nodes[i];
@@ -463,25 +523,23 @@
                     
                     for (let j = 0; j < n1.connections.length; j++) {
                         const n2 = n1.connections[j];
-                        // Only draw once per pair
                         if (nodes.indexOf(n1) < nodes.indexOf(n2)) {
                             const dx = n1.x - n2.x;
                             const dy = n1.y - n2.y;
                             const dist = Math.sqrt(dx*dx + dy*dy);
                             
-                            if (dist < 200) {
+                            if (dist < 220) {
                                 ctx.beginPath();
                                 ctx.moveTo(n1.x, n1.y);
                                 ctx.lineTo(n2.x, n2.y);
-                                ctx.strokeStyle = `rgba(31, 41, 55, ${1 - dist/200})`; // #1f2937 with opacity
+                                ctx.strokeStyle = `rgba(31, 41, 55, ${1 - dist/220})`; 
                                 ctx.stroke();
                             }
                         }
                     }
                 }
                 
-                // Spawn new pulses randomly
-                if (Math.random() < 0.1 && nodes.length > 0) {
+                if (Math.random() < 0.12 && nodes.length > 0) {
                     const randomStart = nodes[Math.floor(Math.random() * nodes.length)];
                     if (randomStart.connections.length > 0) {
                         const randomEnd = randomStart.connections[Math.floor(Math.random() * randomStart.connections.length)];
@@ -489,15 +547,13 @@
                     }
                 }
                 
-                // Update and draw pulses
                 for (let i = pulses.length - 1; i >= 0; i--) {
                     if (pulses[i].update()) {
-                        pulses.splice(i, 1); // Remove finished pulses
+                        pulses.splice(i, 1); 
                     } else {
                         pulses[i].draw();
                     }
                 }
-                
                 requestAnimationFrame(animateGraph);
             }
 
