@@ -340,64 +340,125 @@
     </section>
 
     <!-- Projects Grid -->
-    <section class="max-w-6xl mx-auto px-6 py-32">
-        <h2 class="reveal text-3xl font-bold mb-20 tracking-tight text-white flex items-center gap-3">
+   <!-- Projects Grid -->
+<section class="max-w-6xl mx-auto px-6 py-32">
+    <div class="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-20">
+        <h2 class="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
             <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
             Deployed_Constructs
         </h2>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-            
-            <!-- CapTon AI -->
-            <div class="reveal node-card p-8 rounded-xl flex flex-col justify-between group">
-                <div class="card-content">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors">CapTon AI</h3>
-                    </div>
-                    <p class="text-muted text-sm leading-relaxed mb-8">
+        <p class="text-muted font-mono text-xs">// {'0'}3 shipped systems — more building in progress</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+        <!-- CapTon AI -->
+        <div class="reveal node-card p-0 rounded-xl flex flex-col group overflow-hidden">
+            <div class="relative h-36 bg-gradient-to-br from-accent/15 via-surface to-background border-b border-border flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-grid opacity-40"></div>
+                <span class="absolute top-4 left-4 font-mono text-[10px] text-accent/70 tracking-widest">PROJECT_01</span>
+                <span class="absolute top-4 right-4 px-2 py-0.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-[10px] font-mono flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span> Live
+                </span>
+                <svg class="w-12 h-12 text-accent/60 group-hover:scale-110 group-hover:text-accent transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
+                </svg>
+            </div>
+            <div class="card-content p-8 flex flex-col flex-1 justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors mb-3">CapTon AI</h3>
+                    <p class="text-muted text-sm leading-relaxed mb-6">
                         Production-ready multi-agent platform using CrewAI that converts long-form video scripts into SEO-optimized assets via coordinated analyzer and writer agents.
                     </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs text-accent/80 mb-8">
+                        <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">CrewAI</span>
+                        <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">LangChain</span>
+                        <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">Python</span>
+                    </div>
                 </div>
-                <div class="card-content flex flex-wrap gap-2 font-mono text-xs text-accent/80">
-                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">CrewAI</span>
-                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">LangChain</span>
+                <div class="flex gap-3">
+                    <a href="https://capton.streamlit.app/" target="_blank" class="flex-1 text-center py-2.5 bg-accent text-black font-semibold rounded text-xs font-mono hover:bg-emerald-400 transition-colors flex items-center justify-center gap-1.5">
+                        View Live
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <a href="https://github.com/satvikmishra44" target="_blank" class="flex-1 text-center py-2.5 border border-border text-white font-semibold rounded text-xs font-mono hover:border-accent/50 hover:bg-accent/5 transition-colors flex items-center justify-center gap-1.5">
+                        View Code
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <!-- MADHAV RAG -->
-            <div class="reveal node-card p-8 rounded-xl flex flex-col justify-between group delay-100">
-                <div class="card-content">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors">MADHAV RAG</h3>
-                    </div>
-                    <p class="text-muted text-sm leading-relaxed mb-8">
+        <!-- MADHAV RAG -->
+        <div class="reveal node-card p-0 rounded-xl flex flex-col group overflow-hidden delay-100">
+            <div class="relative h-36 bg-gradient-to-br from-accent/15 via-surface to-background border-b border-border flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-grid opacity-40"></div>
+                <span class="absolute top-4 left-4 font-mono text-[10px] text-accent/70 tracking-widest">PROJECT_02</span>
+                <span class="absolute top-4 right-4 px-2 py-0.5 rounded-full bg-accent/10 border border-accent/30 text-accent text-[10px] font-mono">95% Retrieval</span>
+                <svg class="w-12 h-12 text-accent/60 group-hover:scale-110 group-hover:text-accent transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+            </div>
+            <div class="card-content p-8 flex flex-col flex-1 justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors mb-3">MADHAV RAG</h3>
+                    <p class="text-muted text-sm leading-relaxed mb-6">
                         Retrieval-augmented AI assistant that vectorizes 700+ Bhagavad Gita verses into ChromaDB, achieving 95% contextual retrieval accuracy against a benchmark set.
                     </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs text-accent/80 mb-8">
+                        <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">FastAPI</span>
+                        <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">ChromaDB</span>
+                        <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">RAG</span>
+                    </div>
                 </div>
-                <div class="card-content flex flex-wrap gap-2 font-mono text-xs text-accent/80">
-                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">FastAPI</span>
-                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">ChromaDB</span>
+                <div class="flex gap-3">
+                    <a href="#" target="_blank" class="flex-1 text-center py-2.5 bg-accent text-black font-semibold rounded text-xs font-mono hover:bg-emerald-400 transition-colors flex items-center justify-center gap-1.5">
+                        View Live
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <a href="https://github.com/satvikmishra44" target="_blank" class="flex-1 text-center py-2.5 border border-border text-white font-semibold rounded text-xs font-mono hover:border-accent/50 hover:bg-accent/5 transition-colors flex items-center justify-center gap-1.5">
+                        View Code
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
                 </div>
             </div>
+        </div>
 
-            <!-- VectorFlow -->
-            <div class="reveal node-card p-8 rounded-xl flex flex-col justify-between group delay-200">
-                <div class="card-content">
-                    <div class="flex justify-between items-start mb-6">
-                        <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors">VectorFlow</h3>
-                    </div>
-                    <p class="text-muted text-sm leading-relaxed mb-8">
+        <!-- VectorFlow -->
+        <div class="reveal node-card p-0 rounded-xl flex flex-col group overflow-hidden delay-200">
+            <div class="relative h-36 bg-gradient-to-br from-accent/15 via-surface to-background border-b border-border flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-grid opacity-40"></div>
+                <span class="absolute top-4 left-4 font-mono text-[10px] text-accent/70 tracking-widest">PROJECT_03</span>
+                <span class="absolute top-4 right-4 px-2 py-0.5 rounded-full bg-border/40 border border-border text-muted text-[10px] font-mono">In Dev</span>
+                <svg class="w-12 h-12 text-accent/60 group-hover:scale-110 group-hover:text-accent transition-all duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-10l6 3m0 10V10m0 10l5.447-2.724A1 1 0 0021 16.382V5.618a1 1 0 00-1.447-.894L15 7m0 10V7"/>
+                </svg>
+            </div>
+            <div class="card-content p-8 flex flex-col flex-1 justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-accent transition-colors mb-3">VectorFlow</h3>
+                    <p class="text-muted text-sm leading-relaxed mb-6">
                         Full-stack node-graph visualization environment. Features an interactive React Flow UI powered seamlessly by a high-performance Python FastAPI backend.
                     </p>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs text-accent/80 mb-8">
+                        <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">React Flow</span>
+                        <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">FastAPI</span>
+                    </div>
                 </div>
-                <div class="card-content flex flex-wrap gap-2 font-mono text-xs text-accent/80">
-                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">React Flow</span>
-                    <span class="px-2 py-1 bg-accentDark/10 border border-accent/10 rounded">FastAPI</span>
+                <div class="flex gap-3">
+                    <a href="#" target="_blank" class="flex-1 text-center py-2.5 bg-border/50 text-muted font-semibold rounded text-xs font-mono cursor-not-allowed flex items-center justify-center gap-1.5">
+                        Coming Soon
+                    </a>
+                    <a href="https://github.com/satvikmishra44" target="_blank" class="flex-1 text-center py-2.5 border border-border text-white font-semibold rounded text-xs font-mono hover:border-accent/50 hover:bg-accent/5 transition-colors flex items-center justify-center gap-1.5">
+                        View Code
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.084-.729.084-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
                 </div>
             </div>
-
         </div>
-    </section>
+
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="border-t border-border bg-surface/50 backdrop-blur-md">
