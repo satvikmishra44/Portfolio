@@ -69,6 +69,12 @@
             transform: translateY(0);
         }
         
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+        
         /* Grid Background Overlay */
         .bg-grid {
             background-size: 50px 50px;
@@ -174,22 +180,32 @@
         <canvas id="vector-canvas"></canvas>
         
         <div class="content-layer max-w-6xl mx-auto px-6 pt-20 w-full pointer-events-none">
-            <div class="inline-flex px-3 py-1 mb-8 border border-accent/20 rounded bg-accent/5 text-accent text-xs font-mono items-center gap-2 pointer-events-auto">
+            
+            <!-- Profile Picture Integration -->
+            <div class="reveal active delay-100 mb-8 pointer-events-auto w-fit">
+                <img 
+                    src="https://ui-avatars.com/api/?name=Satvik+Mishra&background=10b981&color=030303&size=256" 
+                    alt="Satvik Mishra" 
+                    class="w-20 h-20 md:w-24 md:h-24 rounded-full border border-accent/40 grayscale hover:grayscale-0 transition-all duration-500 shadow-[0_0_15px_rgba(16,185,129,0.2)] object-cover" 
+                />
+            </div>
+
+            <div class="reveal active delay-200 inline-flex px-3 py-1 mb-8 border border-accent/20 rounded bg-accent/5 text-accent text-xs font-mono items-center gap-2 pointer-events-auto">
                 <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
                 System Active // Open to remote US roles
             </div>
             
-            <div class="font-mono text-muted mb-4 h-6 text-sm flex items-center gap-2">
+            <div class="reveal active delay-300 font-mono text-muted mb-4 h-6 text-sm flex items-center gap-2">
                 <span class="text-accent">~/satvik$</span> 
                 <span id="typewriter"></span><span class="inline-block w-2 h-4 bg-accent animate-blink ml-1"></span>
             </div>
 
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-white leading-[1.05]">
+            <h1 class="reveal active delay-400 text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-white leading-[1.05]">
                 Satvik Mishra <br />
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-100">Applied AI Engineer.</span>
             </h1>
             
-            <p class="text-lg text-muted leading-relaxed max-w-2xl mb-12 font-light pointer-events-auto border-l-2 border-border pl-4">
+            <p class="reveal active delay-500 text-lg text-muted leading-relaxed max-w-2xl mb-12 font-light pointer-events-auto border-l-2 border-border pl-4">
                 Shipping production-ready LLM-powered systems, RAG pipelines, and scalable backend architecture. Architecting intelligent logic for a distributed team of 50+.
             </p>
 
@@ -218,7 +234,7 @@
 
     <!-- Experience Timeline -->
     <section class="max-w-6xl mx-auto px-6 py-32 border-b border-border relative">
-        <div class="absolute left-6 md:left-[30%] top-32 bottom-32 w-px bg-gradient-to-b from-accent via-border to-transparent hidden md:block"></div>
+        <div class="absolute left-6 md:left-[25%] lg:left-[30%] top-32 bottom-32 w-px bg-gradient-to-b from-accent via-border to-transparent hidden md:block"></div>
         
         <h2 class="reveal text-3xl font-bold mb-20 tracking-tight text-white flex items-center gap-3">
             <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
@@ -226,27 +242,64 @@
         </h2>
         
         <div class="grid gap-12">
-            <!-- AntarikshTV -->
+            
+            <!-- AntarikshTV (Current) -->
             <div class="reveal node-card p-8 rounded-xl grid md:grid-cols-[1fr_3fr] gap-6 md:gap-12 relative group cursor-default">
                 <div class="absolute -left-[5px] top-10 w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_12px_#10b981] hidden md:block transition-transform duration-500 group-hover:scale-150"></div>
                 <div class="text-muted font-mono text-sm mt-1 card-content">
                     <span class="text-white block mb-1">AntarikshTV</span>
-                    Jan 2026 — Present
+                    <span class="block mb-2">Remote (India)</span>
+                    Jan 2026 – Present
                 </div>
                 <div class="card-content">
                     <h3 class="text-xl font-bold text-white mb-4">AI Engineer</h3>
                     <ul class="space-y-4 text-muted text-sm leading-relaxed">
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Architected a content intelligence system using LangChain, Gemini, and ChromaDB that analyzes 500+ historical videos and live news signals.
+                            Architected a content intelligence system using LangChain, Gemini, and ChromaDB that analyzes 500+ historical videos and live news signals to surface high-potential topics, contributing to a 30–35% lift in average video engagement measured over 90+ days of production usage[cite: 1].
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Built automated multi-step research agents for a 10-person writing team to retrieve insights from internal video archives, improving script delivery throughput.
+                            Built automated multi-step research agents for a 10-person writing team to retrieve insights from internal video archives, reducing manual research effort and improving script delivery throughput[cite: 1].
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Leading fine-tuning of a domain-specific scriptwriting LLM on 3+ years of proprietary scripts.
+                            Designed and scaled FastAPI backend services and async data pipelines supporting 50+ concurrent internal users, maintaining real-time analytics availability and zero-downtime topic recommendation feeds[cite: 1].
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-0.5">▹</span>
+                            Leading fine-tuning of a domain-specific scriptwriting LLM on 3+ years of proprietary scripts, targeting faster content generation and reduced production overhead[cite: 1].
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-0.5">▹</span>
+                            Collaborate with a fully distributed team using GitHub, Notion, and Slack, maintaining documentation and code reviews for all shipped features in an async-first workflow[cite: 1].
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- AntarikshTV (Intern) -->
+            <div class="reveal node-card p-8 rounded-xl grid md:grid-cols-[1fr_3fr] gap-6 md:gap-12 relative group cursor-default">
+                <div class="absolute -left-[5px] top-10 w-2.5 h-2.5 rounded-full bg-border group-hover:bg-accent hidden md:block transition-colors duration-500"></div>
+                <div class="text-muted font-mono text-sm mt-1 card-content">
+                    <span class="text-white block mb-1">AntarikshTV</span>
+                    <span class="block mb-2">Remote (India)</span>
+                    Nov 2025 – Dec 2025
+                </div>
+                <div class="card-content">
+                    <h3 class="text-xl font-bold text-white mb-4">AI Engineer Intern</h3>
+                    <ul class="space-y-4 text-muted text-sm leading-relaxed">
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-0.5">▹</span>
+                            Built an internal AI chatbot using LangChain and ChromaDB to query organizational knowledge bases and surface real-time project status and content pipeline insights for the production team[cite: 1].
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-0.5">▹</span>
+                            Developed a centralized task-tracking platform for content moderation workflows, improving cross-team visibility and contributing to a ∼15% improvement in tracked team output over the 2-month engagement[cite: 1].
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-0.5">▹</span>
+                            Shipped internal coordination tooling to streamline communication across a 50+ member distributed production team, establishing async engineering practices from day one[cite: 1].
                         </li>
                     </ul>
                 </div>
@@ -257,22 +310,32 @@
                 <div class="absolute -left-[5px] top-10 w-2.5 h-2.5 rounded-full bg-border group-hover:bg-accent hidden md:block transition-colors duration-500"></div>
                 <div class="text-muted font-mono text-sm mt-1 card-content">
                     <span class="text-white block mb-1">RBLottery</span>
-                    Mar 2025 — Sep 2025
+                    <span class="block mb-2">Remote (India)</span>
+                    Mar 2025 – Sep 2025
                 </div>
                 <div class="card-content">
                     <h3 class="text-xl font-bold text-white mb-4">Co-Founder & Founding Engineer</h3>
                     <ul class="space-y-4 text-muted text-sm leading-relaxed">
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Sole-engineered a full-stack digital lottery platform from zero using the MERN stack (MongoDB, Express, React, Node.js), JWT auth, and Tailwind.
+                            Co-founded and sole-engineered a full-stack digital lottery platform from zero using the MERN stack (MongoDB, Express, React, Node.js), JWT authentication, role-based access control, and Tailwind CSS[cite: 1].
                         </li>
                         <li class="flex items-start gap-3">
                             <span class="text-accent mt-0.5">▹</span>
-                            Scaled the platform to 6,300+ registered users with a 78% repeat usage rate, reaching profitability within months.
+                            Scaled the platform to 6,300+ registered users with a 78% repeat usage rate, reaching profitability within months as the only engineer on the team[cite: 1].
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-0.5">▹</span>
+                            Architected REST APIs with Express.js and MongoDB, implemented admin/user/moderator access control, and deployed production infrastructure on Hostinger and Netlify with 99%+ uptime[cite: 1].
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-accent mt-0.5">▹</span>
+                            Shut down in September 2025 following the Government of India’s Online Gaming Regulation Bill (August 2025), which banned all forms of digital lottery nationwide — not due to product or business failure[cite: 1].
                         </li>
                     </ul>
                 </div>
             </div>
+
         </div>
     </section>
 
